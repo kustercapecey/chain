@@ -1,0 +1,6 @@
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMyCustomEvent);
+
+void AMyActor::TriggerCustomEvent()
+{
+    OnMyCustomEvent.Broadcast();
+}
