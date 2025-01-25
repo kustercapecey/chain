@@ -1,0 +1,17 @@
+void AMyCharacter::MoveForward(float Value)
+{
+    if (Value != 0.0f)
+    {
+        Server_MoveForward(Value);
+    }
+}
+
+void AMyCharacter::Server_MoveForward_Implementation(float Value)
+{
+    AddMovementInput(GetActorForwardVector(), Value);
+}
+
+bool AMyCharacter::Server_MoveForward_Validate(float Value)
+{
+    return FMath::Abs(Value) <= 1.0f;
+}
