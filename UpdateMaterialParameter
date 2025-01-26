@@ -1,0 +1,7 @@
+void AMyActor::UpdateMaterialParameter(FName ParameterName, float Value)
+{
+	if (UMaterialInstanceDynamic* MatInstance = MeshComponent->CreateAndSetMaterialInstanceDynamic(0))
+	{
+		MatInstance->SetScalarParameterValue(ParameterName, Value);
+	}
+}
