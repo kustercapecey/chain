@@ -1,0 +1,18 @@
+import os
+from PIL import Image
+import hashlib
+
+def delete_duplicate_images(folder):
+    hashes = set()
+    for file in os.listdir(folder):
+        if file.endswith(('.png', '.jpg', '.jpeg')):
+            file_path = os.path.join(folder, file)
+            with open(file_path, 'rb') as f:
+                hash_val = hashlib.md5(f.read()).hexdigest()
+                if hash_val in hashes:
+                    os.remove(file_path)
+                else:
+                    hashes.add(hash_val)
+
+# 使用示例
+delete_duplicate_images("your_folder_path")
