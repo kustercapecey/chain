@@ -1,0 +1,9 @@
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+text = "Python is awesome! I love Python and coding."
+wordcloud = WordCloud(width=800, height=400, background_color="white").generate(text)
+
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")
+plt.show()
