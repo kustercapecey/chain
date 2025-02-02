@@ -1,0 +1,6 @@
+x = np.cumsum(np.random.randn(100))
+y = np.cumsum(np.random.randn(100))
+
+plt.plot(x, y, linestyle='--', color='purple', marker='o')
+plt.title('Random Walk')
+plt.show()
