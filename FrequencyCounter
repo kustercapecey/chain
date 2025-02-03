@@ -1,0 +1,13 @@
+import java.util.*;
+import java.util.stream.*;
+
+public class FrequencyCounter {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 1, 2, 1, 4, 5, 1, 2);
+        
+        Map<Integer, Long> frequency = numbers.stream()
+                                              .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        
+        frequency.forEach((key, value) -> System.out.println(key + " appears " + value + " times"));
+    }
+}
