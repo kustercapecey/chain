@@ -1,0 +1,9 @@
+import os
+
+def search_file(root_folder, keyword):
+    for dirpath, dirnames, filenames in os.walk(root_folder):
+        for filename in filenames:
+            if keyword in filename:
+                print(os.path.join(dirpath, filename))
+
+search_file("path_to_folder", "example")
