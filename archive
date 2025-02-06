@@ -1,0 +1,5 @@
+#!/bin/bash
+folder="my_folder"
+zip_name="archive.zip"
+zip -r $zip_name $folder
+echo "已将 $folder 压缩为 $zip_name"
