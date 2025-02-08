@@ -1,0 +1,21 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
+#include "MyUserWidget.generated.h"
+
+UCLASS()
+class MYPROJECT_API UMyUserWidget : public UUserWidget
+{
+    GENERATED_BODY()
+
+public:
+    // 通过蓝图调用更新文本
+    UFUNCTION(BlueprintCallable, Category="UI")
+    void UpdateText(const FText& NewText);
+
+protected:
+    // 绑定 UMG 中的 TextBlock，变量名需与 Widget 内的控件一致
+    UPROPERTY(meta=(BindWidget))
+    class UTextBlock* MyTextBlock;
+};
