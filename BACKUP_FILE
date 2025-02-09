@@ -1,0 +1,27 @@
+#!/bin/bash
+# backup.sh: 备份指定目录并压缩为 tar.gz 文件
+
+# 检查是否提供了目录路径参数
+if [ -z "$1" ]; then
+    echo "用法: $0 <目录路径>"
+    exit 1
+fi
+
+SOURCE_DIR="$1"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+BACKUP_FILE="backup_${TIMESTAMP}.tar.gz"
+
+# 检查目录是否存在
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "目录 $SOURCE_DIR 不存在"
+    exit 1
+fi
+
+echo "正在备份目录: $SOURCE_DIR 到文件: $BACKUP_FILE"
+tar -czf "$BACKUP_FILE" "$SOURCE_DIR"
+
+if [ $? -eq 0 ]; then
+    echo "备份成功!"
+else
+    echo "备份失败!"
+fi
