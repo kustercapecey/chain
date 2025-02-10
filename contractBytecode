@@ -1,0 +1,29 @@
+// 请先安装 web3：npm install web3
+const Web3 = require('web3');
+const web3 = new Web3('https://rinkeby.infura.io/v3/YOUR_INFURA_PROJECT_ID');
+
+// 使用私钥生成账户对象（请确保私钥安全）
+const account = web3.eth.accounts.privateKeyToAccount('0xYOUR_PRIVATE_KEY');
+web3.eth.accounts.wallet.add(account);
+
+// 合约ABI和编译后的字节码（示例）
+const contractABI = [ /* 合约ABI数组 */ ];
+const contractBytecode = "0xYourContractBytecode";
+
+async function deployContract() {
+    const contract = new web3.eth.Contract(contractABI);
+    const deployTx = contract.deploy({
+        data: contractBytecode,
+        arguments: []  // 如果合约构造函数有参数，可在此传入
+    });
+
+    const gas = await deployTx.estimateGas();
+    const deployedContract = await deployTx.send({
+        from: account.address,
+        gas: gas
+    });
+
+    console.log("合约部署地址:", deployedContract.options.address);
+}
+
+deployContract().catch(console.error);
