@@ -1,0 +1,9 @@
+myContract.events.MyEvent({
+  fromBlock: 0  // 监听从第 0 块开始的所有事件，也可根据需要调整
+})
+.on('data', event => {
+  console.log('捕获到事件:', event);
+})
+.on('error', error => {
+  console.error('监听事件错误:', error);
+});
