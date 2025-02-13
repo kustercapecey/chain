@@ -1,0 +1,42 @@
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+func generator(nums []int, out chan<- int) {
+    for _, n := range nums {
+        out <- n
+    }
+    close(out)
+}
+
+func square(in <-chan int, out chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    for n := range in {
+        out <- n * n
+    }
+}
+
+func main() {
+    nums := []int{1, 2, 3, 4, 5}
+    gen := make(chan int)
+    squares := make(chan int)
+    var wg sync.WaitGroup
+
+    go generator(nums, gen)
+
+    wg.Add(1)
+    go square(gen, squares, &wg)
+
+    // 等待平方计算结束后关闭 squares 通道
+    go func() {
+        wg.Wait()
+        close(squares)
+    }()
+
+    for sq := range squares {
+        fmt.Println(sq)
+    }
+}
