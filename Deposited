@@ -1,0 +1,15 @@
+const Web3 = require('web3');
+const web3 = new Web3('wss://mainnet.infura.io/ws/v3/YOUR_INFURA_PROJECT_ID');
+
+const abi = [/* 合约 ABI 数组 */];
+const contractAddress = '0xYourContractAddress';
+const contract = new web3.eth.Contract(abi, contractAddress);
+
+// 监听 Deposited 事件
+contract.events.Deposited({
+    fromBlock: 'latest'
+})
+.on('data', (event) => {
+    console.log('Deposit event detected:', event.returnValues);
+})
+.on('error', console.error);
