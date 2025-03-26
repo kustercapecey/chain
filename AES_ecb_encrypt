@@ -1,0 +1,22 @@
+#include <openssl/aes.h>
+#include <stdio.h>
+#include <string.h>
+
+void encrypt_decrypt(const unsigned char *input, unsigned char *output, const AES_KEY *key, int encrypt) {
+    AES_ecb_encrypt(input, output, key, encrypt);
+}
+
+int main() {
+    unsigned char key_data[16] = "secretkey123456";
+    unsigned char input[16] = "plaintextdata123";
+    unsigned char output[16];
+
+    AES_KEY key;
+    AES_set_encrypt_key(key_data, 128, &key);
+    encrypt_decrypt(input, output, &key, AES_ENCRYPT);
+    printf("Encrypted: %s\n", output);
+
+    AES_set_decrypt_key(key_data, 128, &key);
+    encrypt_decrypt(output, input, &key, AES_DECRYPT);
+    printf("Decrypted: %s\n", input);
+}
