@@ -1,0 +1,23 @@
+import asyncio
+
+class Event:
+    def __init__(self):
+        self.handlers = []
+
+    def attach(self, handler):
+        self.handlers.append(handler)
+
+    async def trigger(self, data):
+        for h in self.handlers:
+            await h(data)
+
+async def on_event(data):
+    await asyncio.sleep(1)
+    print(f"Handled event with: {data}")
+
+async def main():
+    e = Event()
+    e.attach(on_event)
+    await e.trigger("🚀 Data Incoming")
+
+asyncio.run(main())
