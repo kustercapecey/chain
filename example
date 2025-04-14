@@ -1,0 +1,14 @@
+#!/bin/bash
+
+urls=("https://example.com/1" "https://example.com/2" "https://example.com/3")
+
+fetch() {
+    curl -s -o /dev/null -w "%{http_code}" "$1"
+}
+
+for url in "${urls[@]}"; do
+    fetch "$url" &
+done
+
+wait
+echo "All fetches complete."
